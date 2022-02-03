@@ -2,10 +2,11 @@
     display: grid;
     grid-template-columns: 50% 50%;
     margin: auto;
-    max-width: 1050px;
+    padding-bottom: 24px;
 }
 
 #calculator-container {
+    padding: 8px;
     margin: auto;
     width: 340px;
 }
@@ -15,7 +16,7 @@
     border: none;
     text-align: right;
     font-family: Avenir, Helvetica, Arial, sans-serif;
-    font-size: 52px;
+    font-size: 48px;
     margin: 16px 16px 10px 10px;
     max-width: 100%;
     overflow-x: scroll;
@@ -33,19 +34,19 @@
 #log-container {
     margin: auto;
     width: 340px;
-    padding-top: 80px;
+    padding-top: 24px;
 }
 
 #log-entries {
     border: black solid 1px;
     border-radius: 10px;
-    height: 420px;
+    height: 400px;
     overflow-y: scroll;
 }
 
 .log-entry {
     width: 90%;
-    padding: 16px;
+    padding: 0px 0px 0px 16px;
     text-align: left;
     font-size: 16px;
 }
@@ -87,4 +88,22 @@
 .function-button {
     background: #4acc93;
     font-weight: normal;
+}
+
+@media (min-width: 800px) {
+
+    #main-container {
+        grid-template-columns: 50% 50%;
+        max-width: 1050px;
+    }
+
+}
+
+@media (max-width: 800px) {
+
+    #main-container {
+        grid-template-columns: none;
+        grid-template-rows: auto auto;
+
+    }
 }

@@ -104,7 +104,7 @@
     </div>
 
     <div id="log-container">
-      <h3>Calculation log</h3>
+      <h2>Calculation log</h2>
       <div id="log-entries">
         <p class="log-entry" v-for="s in this.calculations" :key="s.id">
           {{
@@ -206,6 +206,7 @@ export default {
     equalsButton() {
       this.secondNumber = parseFloat(this.displayValue)
       this.calculate()
+      this.clearCalculation()
       this.clearDisplayNext = true
     },
     calculate() {

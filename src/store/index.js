@@ -40,7 +40,7 @@ export default createStore({
 
       if(answer !== 0 && !parseFloat(answer)) {
         console.log("Unable to calculate...")
-        return Promise.reject(new Error("Answer is not a number."))
+        return Promise.reject(new Error("Not a number"))
       }
 
       const calc = {
