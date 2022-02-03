@@ -17,6 +17,12 @@
     font-family: Avenir, Helvetica, Arial, sans-serif;
     font-size: 52px;
     margin: 16px 16px 10px 10px;
+    max-width: 100%;
+    overflow-x: scroll;
+}
+
+#display::-webkit-scrollbar {
+    display: none;
 }
 
 #button-grid {
@@ -30,11 +36,18 @@
     padding-top: 80px;
 }
 
-#log {
+#log-entries {
+    border: black solid 1px;
+    border-radius: 10px;
+    height: 420px;
+    overflow-y: scroll;
+}
+
+.log-entry {
     width: 90%;
-    resize: none;
-    margin: auto;
-    height: 400px;
+    padding: 16px;
+    text-align: left;
+    font-size: 16px;
 }
 
 .calculator-button {
@@ -51,12 +64,27 @@
     font-weight: bold;
 }
 
+.calculator-button:hover {
+    filter: brightness(85%);
+    cursor: pointer;
+}
+
+.calculator-button:active {
+    filter: brightness(55%);
+    cursor: pointer;
+}
+
 .operation-button {
-    background: #2F845E;
+    background: #43b985;
+    font-size: 24px;
+}
+
+.operation-button-selected {
+    background: #73d9ab;
     font-size: 24px;
 }
 
 .function-button {
-    background: #43B885;
+    background: #4acc93;
     font-weight: normal;
 }
