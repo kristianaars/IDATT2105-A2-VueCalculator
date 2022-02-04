@@ -142,7 +142,11 @@ export default {
         this.clearDisplay();
       }
 
-      if (this.displayValue == "0") {
+      if(char == '.' && this.displayValue.includes('.')) {
+        return;
+      }
+
+      if (this.displayValue == "0" && char != '.') {
         this.displayValue = char;
       } else {
         this.displayValue += char;
