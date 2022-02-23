@@ -142,11 +142,11 @@ export default {
         this.clearDisplay();
       }
 
-      if(char == '.' && this.displayValue.includes('.')) {
+      if (char == "." && this.displayValue.includes(".")) {
         return;
       }
 
-      if (this.displayValue == "0" && char != '.') {
+      if (this.displayValue == "0" && char != ".") {
         this.displayValue = char;
       } else {
         this.displayValue += char;
@@ -192,26 +192,25 @@ export default {
     },
     applyOperator(operator) {
       const operatorExist = this.operator !== null;
-      const currentNumber = parseFloat(this.displayValue)
+      const currentNumber = parseFloat(this.displayValue);
 
       if (!operatorExist) {
         this.clearDisplay();
-        this.firstNumber = currentNumber
-        this.operator = operator
+        this.firstNumber = currentNumber;
+        this.operator = operator;
       } else {
-        this.secondNumber = currentNumber
-        this.calculate()
-        this.firstNumber = this.lastAnswer
-        this.operator = operator
-        this.clearDisplayNext = true
+        this.secondNumber = currentNumber;
+        this.calculate();
+        this.firstNumber = this.lastAnswer;
+        this.operator = operator;
+        this.clearDisplayNext = true;
       }
-
     },
     equalsButton() {
-      this.secondNumber = parseFloat(this.displayValue)
-      this.calculate()
-      this.clearCalculation()
-      this.clearDisplayNext = true
+      this.secondNumber = parseFloat(this.displayValue);
+      this.calculate();
+      this.clearCalculation();
+      this.clearDisplayNext = true;
     },
     calculate() {
       this.$store
