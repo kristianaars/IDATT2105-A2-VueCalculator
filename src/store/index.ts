@@ -26,7 +26,7 @@ export default createStore({
   },
   getters: {
     lastAnswer: (state) => {
-      return state.calculations[-1];
+      return state.calculations[state.calculations.length - 1].answer;
     },
     email: (state) => {
       return state.contactFormInformation.email;

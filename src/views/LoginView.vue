@@ -7,8 +7,12 @@
 
       <button>Log In</button>
 
-      <p>{{ LoginError }}</p>
+      <div v-if="LoginError">
+        <p>{{ LoginError }}</p>
+        <RouterLink to="/register">Want to register a new user?</RouterLink>
+      </div>
     </form>
+
   </div>
 </template>
 
@@ -47,7 +51,7 @@ export default {
             });
             this.$store.commit(
               "SET_WELCOME_MESSAGE",
-              "You are successfully logged in."
+              "You have successfully logged in."
             );
             this.$store.commit("CLEAR_LOGIN_ERROR");
             console.log("Login successful!");
@@ -101,22 +105,5 @@ textarea {
   border: 1px solid #838383;
   border-radius: 3px;
   padding: 8px;
-}
-
-.input-error {
-  border-color: #dc778b;
-}
-
-.error-message {
-  color: lightcoral;
-  padding: 0;
-  margin: 0;
-}
-
-#text-area-input-container {
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  padding: 100px;
 }
 </style>
