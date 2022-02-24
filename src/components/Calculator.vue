@@ -1,5 +1,4 @@
 <template>
-
   <div id="main-container">
     <div id="calculator-container">
       <p id="display">{{ this.displayValue }}</p>

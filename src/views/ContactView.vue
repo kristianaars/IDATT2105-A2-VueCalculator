@@ -1,10 +1,13 @@
 <template>
   <div class="content-container">
-
     <form id="content-container" @submit.prevent="this.submit">
       <div id="header-text">
         <h1>Contact us!</h1>
-        <p>We would love to hear what your think of our calculator app! Please fill in the form below and we will get back to you as soon as possible.</p>
+        <p>
+          We would love to hear what your think of our calculator app! Please
+          fill in the form below and we will get back to you as soon as
+          possible.
+        </p>
       </div>
 
       <BasicInput v-model="name" label="Name" :error="errors.name" />
@@ -59,7 +62,9 @@ export default {
       name: string()
         .required()
         .matches(/^(\w+ +)+\b(\w)+$/, "Please enter your full name"),
-      email: string().required("An email is required").email("Please enter a valid email"),
+      email: string()
+        .required("An email is required")
+        .email("Please enter a valid email"),
       message: string().required("Please enter a message"),
     });
 
@@ -181,5 +186,4 @@ button:enabled:hover {
   margin: 0;
   color: #ababab;
 }
-
 </style>

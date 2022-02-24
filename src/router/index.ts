@@ -12,17 +12,17 @@ const routes = [
   {
     path: "/contact",
     name: "Contact",
-    component: ContactView
+    component: ContactView,
   },
   {
     path: "/login",
     name: "Login",
-    component: LoginView
+    component: LoginView,
   },
   {
     path: "/register",
     name: "Register",
-    component: RegisterView
+    component: RegisterView,
   },
 ];
 

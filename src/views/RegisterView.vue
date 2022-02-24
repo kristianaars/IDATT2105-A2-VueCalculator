@@ -11,9 +11,7 @@
 
       <button>Log In</button>
     </form>
-
   </div>
-
 </template>
 
 <script>
@@ -35,6 +33,4 @@ export default {
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

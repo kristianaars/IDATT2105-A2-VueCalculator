@@ -3,16 +3,20 @@
     <form>
       <h1>Login</h1>
       <BasicInput label="Username" v-model="username" :error="InputErrorBind" />
-      <BasicInput label="Password" v-model="password" type="password" :error="InputErrorBind" />
+      <BasicInput
+        label="Password"
+        v-model="password"
+        type="password"
+        :error="InputErrorBind"
+      />
 
-      <button>Log In</button>
+      <button @click="submit" data-testid="submit-button" id="submit-button">Log In</button>
 
-      <div v-if="LoginError">
-        <p>{{ LoginError }}</p>
+      <div v-if="this.LoginError">
+        <p id="error-message" data-testid="error-message">{{ this.LoginError }}</p>
         <RouterLink to="/register">Want to register a new user?</RouterLink>
       </div>
     </form>
-
   </div>
 </template>
 
@@ -28,10 +32,11 @@ export default {
     return {
       username: "",
       password: "",
+      LoginError: "fds",
     };
   },
   methods: {
-    submit() {
+    async submit() {
       console.log(
         "Logging in with username '" +
           this.username +
@@ -39,7 +44,7 @@ export default {
           this.password +
           "'"
       );
-      AuthenticationService.authenticate(this.username, this.password)
+      await AuthenticationService.authenticate(this.username, this.password)
         .then((response) => {
           const loginStatus = response.data.loginStatus;
 
@@ -53,50 +58,40 @@ export default {
               "SET_WELCOME_MESSAGE",
               "You have successfully logged in."
             );
-            this.$store.commit("CLEAR_LOGIN_ERROR");
+            this.LoginError = ""
             console.log("Login successful!");
 
-            router.push("/")
-
+            router.push("/");
           } else {
             // Login failed ☹️
             this.$store.commit("SET_LOGGED_IN_USER", {
               username: "",
               password: "",
             });
-            this.$store.commit(
-              "SET_LOGIN_ERROR",
-              "Wrong username or password..."
-            );
+            this.LoginError = "Wrong username or password..."
             this.$store.commit("CLEAR_WELCOME_MESSAGE");
             console.log("Unable to log you in.");
           }
         })
         .catch((error) => {
           console.log("Error sending login-request");
-          console.error(error);
 
           this.$store.commit("CLEAR_LOGGED_IN_USER");
-          this.$store.commit(
-            "SET_LOGIN_ERROR",
-            "Unable to contact login-server..."
-          );
+          this.LoginError = "Unable to contact login-server..."
           this.$store.commit("CLEAR_WELCOME_MESSAGE");
+          console.log(error);
         });
     },
   },
   computed: {
-    LoginError() {
-      return this.$store.getters.loginError
-    },
     InputErrorBind() {
-      if(this.LoginError) {
-        return " "
+      if (this.LoginError) {
+        return " ";
       } else {
-        return ""
+        return "";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

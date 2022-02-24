@@ -31,7 +31,6 @@ export default {
 </script>
 
 <style scoped>
-
 textarea {
   border: 1px solid #838383;
   border-radius: 3px;
@@ -54,5 +53,4 @@ textarea {
   flex-direction: column;
   padding: 100px;
 }
-
 </style>

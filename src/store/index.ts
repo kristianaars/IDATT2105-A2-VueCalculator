@@ -50,8 +50,8 @@ export default createStore({
       );
     },
     loggedInUser: (state) => {
-      return state.loginCredentials.username
-    }
+      return state.loginCredentials.username;
+    },
   },
   mutations: {
     PUSH_TO_LOG(state, calculation: any) {
@@ -83,8 +83,8 @@ export default createStore({
       state.loginWelcome = message;
     },
     CLEAR_WELCOME_MESSAGE(state) {
-      state.loginWelcome = ""
-    }
+      state.loginWelcome = "";
+    },
   },
   actions: {
     calculate({ commit }, { firstNumber, operator, secondNumber }) {
