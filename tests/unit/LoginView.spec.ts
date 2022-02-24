@@ -62,4 +62,6 @@ describe("LoginView.vue", () => {
       expect(router.push).toBeCalledWith("/");
     });
   });
+
+
 });
