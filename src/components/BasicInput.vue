@@ -2,15 +2,15 @@
   <div id="container">
     <label v-if="label">{{ label }}</label>
     <input
-        v-bind="$attrs"
-        :value="modelValue"
-        :placeholder="label"
-        @input="$emit('update:modelValue', $event.target.value)"
-        v-bind:class="{ 'input-error': error }"
+      v-bind="$attrs"
+      :value="modelValue"
+      :placeholder="label"
+      @input="$emit('update:modelValue', $event.target.value)"
+      v-bind:class="{ 'input-error': error }"
+      :type="type"
     />
     <p v-if="error" class="error-message">{{ error }}</p>
   </div>
-
 </template>
 
 <script>
@@ -25,14 +25,17 @@ export default {
       required: true,
     },
     error: {
-      type: String
-    }
+      type: String,
+    },
+    type: {
+      type: String,
+      default: "text",
+    },
   },
 };
 </script>
 
 <style scoped>
-
 #container {
   text-align: left;
   display: grid;
@@ -55,5 +58,4 @@ input {
 .input-error {
   border-color: #dc778b;
 }
-
 </style>

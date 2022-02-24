@@ -1,5 +1,4 @@
 <template>
-  <h1>Calculator</h1>
 
   <div id="main-container">
     <div id="calculator-container">

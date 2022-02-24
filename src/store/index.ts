@@ -8,6 +8,12 @@ interface calculation {
 
 export default createStore({
   state: {
+    loginCredentials: {
+      username: "",
+      password: "",
+    },
+    loginError: "",
+    loginWelcome: "",
     contactFormState: "",
     contactFormInformation: {
       name: "",
@@ -30,6 +36,21 @@ export default createStore({
     },
     contactFormState: (state) => {
       return state.contactFormState;
+    },
+    loginWelcome: (state) => {
+      return state.loginWelcome;
+    },
+    loginError: (state) => {
+      return state.loginError;
+    },
+    loginState: (state) => {
+      return (
+        state.loginCredentials.username != "" &&
+        state.loginCredentials.password != ""
+      );
+    },
+    loggedInUser: (state) => {
+      return state.loginCredentials.username
     }
   },
   mutations: {
@@ -43,6 +64,27 @@ export default createStore({
       state.contactFormState = stateText;
       console.log(state.contactFormState);
     },
+    SET_LOGGED_IN_USER(
+      state,
+      credentials: { username: string; password: string }
+    ) {
+      state.loginCredentials = credentials;
+    },
+    CLEAR_LOGGED_IN_USER(state) {
+      state.loginCredentials = { username: "", password: "" };
+    },
+    SET_LOGIN_ERROR(state, error: string) {
+      state.loginError = error;
+    },
+    CLEAR_LOGIN_ERROR(state) {
+      state.loginError = "";
+    },
+    SET_WELCOME_MESSAGE(state, message: string) {
+      state.loginWelcome = message;
+    },
+    CLEAR_WELCOME_MESSAGE(state) {
+      state.loginWelcome = ""
+    }
   },
   actions: {
     calculate({ commit }, { firstNumber, operator, secondNumber }) {

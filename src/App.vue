@@ -3,6 +3,8 @@
     <router-link to="/">Calculator</router-link>
     |
     <router-link to="/contact">Contact</router-link>
+    |
+    <router-link to="/login">Log In</router-link>
   </div>
   <router-view />
 </template>

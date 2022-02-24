@@ -1,7 +1,7 @@
 <template>
-  <div id="contact-form-container">
+  <div class="content-container">
 
-    <form id="contact-form" @submit.prevent="this.submit">
+    <form id="content-container" @submit.prevent="this.submit">
       <div id="header-text">
         <h1>Contact us!</h1>
         <p>We would love to hear what your think of our calculator app! Please fill in the form below and we will get back to you as soon as possible.</p>
@@ -130,14 +130,13 @@ export default {
   margin-bottom: 0px;
 }
 
-#contact-form-container {
+.content-container {
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
-
-#contact-form {
+form {
   min-width: 200px;
   max-width: 550px;
   width: 80%;
@@ -147,25 +146,26 @@ export default {
   text-align: left;
 }
 
-#contact-form div {
+form div {
   display: flex;
   flex-direction: column;
 }
 
-#contact-form button {
+button {
   margin-top: 16px;
   height: 32px;
   border: solid 1px black;
   background: white;
   border-radius: 16px;
+  padding: 8px 16px 8px 16px;
 }
 
-#contact-form button:disabled {
+button:disabled {
   border: solid 1px #919191;
   background: #f1f1f1;
 }
 
-#contact-form button:enabled:hover {
+button:enabled:hover {
   cursor: pointer;
   scale: 1.015;
   background: #f8f8f8;
