@@ -2,9 +2,9 @@ import { mount } from "@vue/test-utils";
 import LoginView from "@/views/LoginView.vue";
 import store from "@/store";
 import router from "@/router";
-import AuthenticationService from "@/services/AuthenticationService.js";
+import AuthenticationService from "@/services/AccountService.js";
 
-jest.mock("@/services/AuthenticationService.js.ts");
+jest.mock("@/services/AccountService.ts");
 jest.mock("@/router");
 
 beforeEach(() => {
@@ -22,16 +22,16 @@ describe("LoginView.vue", () => {
     });
 
     const wrapper = mount(LoginView, {
-      props: {
-        username: "user",
-        password: "pass",
-      },
       global: {
         plugins: [store, router],
       },
     });
 
+    await wrapper.setData({ username: "user", password: "pass"})
+
     await wrapper.vm.submit().then(() => {
+      expect(store.getters.loginState).toEqual(false);
+      expect(store.getters.loggedInUser).toEqual("");
       expect(wrapper.find('[data-testid="error-message"]').text()).toEqual(
         "Wrong username or password..."
       );
@@ -48,16 +48,16 @@ describe("LoginView.vue", () => {
     });
 
     const wrapper = mount(LoginView, {
-      props: {
-        username: "user",
-        password: "pass",
-      },
       global: {
         plugins: [store, router],
       },
     });
 
+    await wrapper.setData({ username: "user", password: "pass"})
+
     await wrapper.vm.submit().then(() => {
+      expect(store.getters.loggedInUser).toEqual("user");
+      expect(store.getters.loginState).toEqual(true);
       expect(router.push).toBeCalledTimes(1);
       expect(router.push).toBeCalledWith("/");
     });

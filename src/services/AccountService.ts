@@ -13,4 +13,14 @@ export default {
   authenticate(username: string, password: string) {
     return apiClient.post("/login", { username: username, password: password });
   },
+  register(userInfo: {
+    fullName: string;
+    address: string;
+    username: string;
+    password: string;
+    email: string;
+    phone: string;
+  }) {
+    return apiClient.post("/register", userInfo)
+  },
 };

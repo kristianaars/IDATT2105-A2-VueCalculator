@@ -22,7 +22,7 @@
 
 <script>
 import BasicInput from "@/components/BasicInput";
-import AuthenticationService from "@/services/AuthenticationService.js";
+import AccountService from "@/services/AccountService.ts";
 import router from "@/router";
 
 export default {
@@ -32,7 +32,7 @@ export default {
     return {
       username: "",
       password: "",
-      LoginError: "fds",
+      LoginError: "",
     };
   },
   methods: {
@@ -44,7 +44,7 @@ export default {
           this.password +
           "'"
       );
-      await AuthenticationService.authenticate(this.username, this.password)
+      await AccountService.authenticate(this.username, this.password)
         .then((response) => {
           const loginStatus = response.data.loginStatus;
 

@@ -1,10 +1,5 @@
 import { createStore } from "vuex";
 
-interface calculation {
-  firstNumber: number;
-  operator: string;
-  secondNumber: number;
-}
 
 export default createStore({
   state: {
