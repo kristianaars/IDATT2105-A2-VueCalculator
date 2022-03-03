@@ -218,6 +218,11 @@ export default {
         second_number: this.second_number,
       })
         .then((response) => {
+          console.log(
+            "Received the following response from server: " +
+              JSON.stringify(response)
+          );
+
           this.displayValue = response.data.answer;
           this.$store.dispatch("saveToLog", {
             ...response.data.calculation,
@@ -225,6 +230,10 @@ export default {
           });
         })
         .catch((error) => {
+          console.error(
+              "Received the following response from server: " +
+              JSON.stringify(error)
+          );
           this.displayValue = error;
         });
     },

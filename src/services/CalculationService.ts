@@ -15,6 +15,7 @@ export default {
     operator: string;
     second_number: number;
   }) {
+    console.log("Posting " + JSON.stringify(calculation) + " to /calculate")
     return apiClient.post("/calculate", calculation);
   },
 };
