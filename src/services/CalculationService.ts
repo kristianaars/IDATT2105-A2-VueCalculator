@@ -11,14 +11,10 @@ const apiClient = axios.create({
 
 export default {
   calculate(calculation: {
-    firstNumber: number;
+    first_number: number;
     operator: string;
-    secondNumber: number;
+    second_number: number;
   }) {
-    return apiClient.post("/calculate", {
-      first_number: calculation.firstNumber,
-      operator: calculation.operator,
-      second_number: calculation.secondNumber
-    });
+    return apiClient.post("/calculate", calculation);
   },
 };

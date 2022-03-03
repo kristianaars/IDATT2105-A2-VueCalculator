@@ -16,7 +16,7 @@ export default createStore({
     },
 
     calculations: [
-      { firstNumber: 0, operator: "+", secondNumber: 0, answer: 0 },
+      { first_number: 0, operator: "+", second_number: 0, answer: 0 },
     ],
   },
   getters: {
@@ -82,44 +82,8 @@ export default createStore({
     },
   },
   actions: {
-    calculate({ commit }, { firstNumber, operator, secondNumber }) {
-      if (operator === null) {
-        operator = "+";
-      }
-
-      let answer;
-      switch (operator) {
-        case "+":
-          answer = firstNumber + secondNumber;
-          break;
-        case "-":
-          answer = firstNumber - secondNumber;
-          break;
-        case "x":
-          answer = firstNumber * secondNumber;
-          break;
-        case "/":
-          answer = firstNumber / secondNumber;
-          break;
-      }
-
-      if (answer !== 0 && !parseFloat(answer)) {
-        console.log("Unable to calculate...");
-        return Promise.reject(new Error("Not a number"));
-      }
-
-      const calc = {
-        firstNumber: firstNumber,
-        operator: operator,
-        secondNumber: secondNumber,
-        answer: answer,
-      };
-
-      console.log(calc);
-
-      commit("PUSH_TO_LOG", calc);
-    },
     saveToLog({ commit }, calculation) {
+      console.log(calculation)
       commit("PUSH_TO_LOG", {
         ...calculation,
         id: this.state.calculations.length,

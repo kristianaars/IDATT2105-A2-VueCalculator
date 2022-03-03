@@ -22,8 +22,8 @@
         </button>
         <button
           class="calculator-button operation-button"
-          :class="{ 'operation-button-selected': operator === 'Plus' }"
-          @click="applyOperator('Plus')"
+          :class="{ 'operation-button-selected': operator === '+' }"
+          @click="applyOperator('+')"
         >
           +
         </button>
@@ -40,8 +40,8 @@
         </button>
         <button
           class="calculator-button operation-button"
-          :class="{ 'operation-button-selected': operator === 'Minus' }"
-          @click="applyOperator('Minus')"
+          :class="{ 'operation-button-selected': operator === '-' }"
+          @click="applyOperator('-')"
         >
           -
         </button>
@@ -58,8 +58,8 @@
         </button>
         <button
           class="calculator-button operation-button"
-          :class="{ 'operation-button-selected': operator === 'Times' }"
-          @click="applyOperator('Times')"
+          :class="{ 'operation-button-selected': operator === 'x' }"
+          @click="applyOperator('x')"
         >
           x
         </button>
@@ -76,8 +76,8 @@
         </button>
         <button
           class="calculator-button operation-button"
-          :class="{ 'operation-button-selected': operator === 'Divide' }"
-          @click="applyOperator('Divide')"
+          :class="{ 'operation-button-selected': operator === '/' }"
+          @click="applyOperator('/')"
         >
           /
         </button>
@@ -106,11 +106,11 @@
       <div id="log-entries">
         <p class="log-entry" v-for="s in this.calculations" :key="s.id">
           {{
-            s.firstNumber +
+            s.first_number +
             " " +
             s.operator +
             " " +
-            s.secondNumber +
+            s.second_number +
             " = " +
             s.answer
           }}
@@ -130,8 +130,8 @@ export default {
     return {
       displayValue: "0",
       operator: null,
-      firstNumber: 0,
-      secondNumber: 0,
+      first_number: 0,
+      second_number: 0,
       clearDisplayNext: false,
     };
   },
@@ -172,8 +172,8 @@ export default {
     },
     clearCalculation() {
       this.operator = null;
-      this.firstNumber = 0;
-      this.secondNumber = 0;
+      this.first_number = 0;
+      this.second_number = 0;
     },
     invertDisplayValue() {
       if (this.clearDisplayNext) {
@@ -195,30 +195,34 @@ export default {
 
       if (!operatorExist) {
         this.clearDisplay();
-        this.firstNumber = currentNumber;
+        this.first_number = currentNumber;
         this.operator = operator;
       } else {
-        this.secondNumber = currentNumber;
+        this.second_number = currentNumber;
         this.calculate();
-        this.firstNumber = this.lastAnswer;
+        this.first_number = this.lastAnswer;
         this.operator = operator;
         this.clearDisplayNext = true;
       }
     },
     equalsButton() {
-      this.secondNumber = parseFloat(this.displayValue);
+      this.second_number = parseFloat(this.displayValue);
       this.calculate();
       this.clearCalculation();
       this.clearDisplayNext = true;
     },
     calculate() {
       CalculationService.calculate({
-        firstNumber: this.firstNumber,
+        first_number: this.first_number,
         operator: this.operator,
-        secondNumber: this.secondNumber,
+        second_number: this.second_number,
       })
         .then((response) => {
           this.displayValue = response.data.answer;
+          this.$store.dispatch("saveToLog", {
+            ...response.data.calculation,
+            answer: response.data.answer,
+          });
         })
         .catch((error) => {
           this.displayValue = error;
