@@ -22,8 +22,8 @@
         </button>
         <button
           class="calculator-button operation-button"
-          :class="{ 'operation-button-selected': operator === '+' }"
-          @click="applyOperator('+')"
+          :class="{ 'operation-button-selected': operator === 'Plus' }"
+          @click="applyOperator('Plus')"
         >
           +
         </button>
@@ -40,8 +40,8 @@
         </button>
         <button
           class="calculator-button operation-button"
-          :class="{ 'operation-button-selected': operator === '-' }"
-          @click="applyOperator('-')"
+          :class="{ 'operation-button-selected': operator === 'Minus' }"
+          @click="applyOperator('Minus')"
         >
           -
         </button>
@@ -58,8 +58,8 @@
         </button>
         <button
           class="calculator-button operation-button"
-          :class="{ 'operation-button-selected': operator === 'x' }"
-          @click="applyOperator('x')"
+          :class="{ 'operation-button-selected': operator === 'Times' }"
+          @click="applyOperator('Times')"
         >
           x
         </button>
@@ -76,8 +76,8 @@
         </button>
         <button
           class="calculator-button operation-button"
-          :class="{ 'operation-button-selected': operator === '/' }"
-          @click="applyOperator('/')"
+          :class="{ 'operation-button-selected': operator === 'Divide' }"
+          @click="applyOperator('Divide')"
         >
           /
         </button>
@@ -122,6 +122,7 @@
 
 <script>
 require("@/assets/styles/calculator.css");
+import CalculationService from "@/services/CalculationService";
 
 export default {
   name: "Calculator",
@@ -211,18 +212,16 @@ export default {
       this.clearDisplayNext = true;
     },
     calculate() {
-      this.$store
-        .dispatch("calculate", {
-          firstNumber: this.firstNumber,
-          secondNumber: this.secondNumber,
-          operator: this.operator,
-        })
-        .then(() => {
-          this.displayValue = this.lastAnswer;
+      CalculationService.calculate({
+        firstNumber: this.firstNumber,
+        operator: this.operator,
+        secondNumber: this.secondNumber,
+      })
+        .then((response) => {
+          this.displayValue = response.data.answer;
         })
         .catch((error) => {
           this.displayValue = error;
-          this.clearDisplayNext = true;
         });
     },
     useLastAnswer() {
