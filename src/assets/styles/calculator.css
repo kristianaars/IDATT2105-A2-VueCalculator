@@ -66,6 +66,7 @@
 }
 
 .calculator-button:hover {
+    background: #34495E;
     filter: brightness(85%);
     cursor: pointer;
 }
@@ -81,7 +82,7 @@
 }
 
 .operation-button-selected {
-    background: #73d9ab;
+    background: #9cfccb;
     font-size: 24px;
 }
 
