@@ -44,15 +44,15 @@ export default {
           this.password +
           "'"
       );
-      await AccountService.authenticate(this.username, this.password)
+      await AccountService.getToken(this.username, this.password)
         .then((response) => {
-          const loginStatus = response.data.loginStatus;
+          const loginStatus = response.status;
 
-          if (loginStatus === "Success") {
+          if (loginStatus === 201) {
             // Login success 🥳
             this.$store.commit("SET_LOGGED_IN_USER", {
               username: this.username,
-              password: this.password,
+              token: response.data,
             });
             this.$store.commit(
               "SET_WELCOME_MESSAGE",

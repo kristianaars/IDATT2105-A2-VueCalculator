@@ -58,8 +58,8 @@
         </button>
         <button
           class="calculator-button operation-button"
-          :class="{ 'operation-button-selected': operator === 'x' }"
-          @click="applyOperator('x')"
+          :class="{ 'operation-button-selected': operator === '*' }"
+          @click="applyOperator('*')"
         >
           x
         </button>
@@ -123,6 +123,7 @@
 <script>
 require("@/assets/styles/calculator.css");
 import CalculationService from "@/services/CalculationService";
+import store from "@/store";
 
 export default {
   name: "Calculator",
@@ -135,6 +136,25 @@ export default {
       clearDisplayNext: false,
     };
   },
+
+  mounted() {
+    CalculationService.getCalculations(store.state.loginCredentials.token).then(
+      (res) => {
+        res.data.forEach((k) => {
+          const ans = {
+            first_number: k.first_number,
+            operator: k.operator,
+            second_number: k.second_number,
+            answer: k.answer,
+          };
+
+          this.$store.dispatch("saveToLog", ans);
+        });
+      }
+    );
+
+  },
+
   methods: {
     appendToDisplay(char) {
       if (this.clearDisplayNext) {
@@ -212,26 +232,30 @@ export default {
       this.clearDisplayNext = true;
     },
     calculate() {
-      CalculationService.calculate({
-        first_number: this.first_number,
-        operator: this.operator,
-        second_number: this.second_number,
-      })
+      CalculationService.calculate(
+        {
+          first_number: this.first_number,
+          operator: this.operator,
+          second_number: this.second_number,
+        },
+        this.$store.state.loginCredentials.token
+      )
         .then((response) => {
-          console.log(
-            "Received the following response from server: " +
-              JSON.stringify(response)
-          );
+          console.log(response.data);
+
+          const ans = {
+            first_number: response.data.first_number,
+            operator: response.data.operator,
+            second_number: response.data.second_number,
+            answer: response.data.answer,
+          };
 
           this.displayValue = response.data.answer;
-          this.$store.dispatch("saveToLog", {
-            ...response.data.calculation,
-            answer: response.data.answer,
-          });
+          this.$store.dispatch("saveToLog", ans);
         })
         .catch((error) => {
           console.error(
-              "Received the following response from server: " +
+            "Received the following response from server: " +
               JSON.stringify(error)
           );
           this.displayValue = error;

@@ -5,7 +5,7 @@ export default createStore({
   state: {
     loginCredentials: {
       username: "",
-      password: "",
+      token: "",
     },
     loginError: "",
     loginWelcome: "",
@@ -14,9 +14,8 @@ export default createStore({
       name: "",
       email: "",
     },
-
     calculations: [
-      { first_number: 0, operator: "+", second_number: 0, answer: 0 },
+      { first_number: 0.0, operator: "+", second_number: 0.0, answer: 0.0 },
     ],
   },
   getters: {
@@ -39,10 +38,7 @@ export default createStore({
       return state.loginError;
     },
     loginState: (state) => {
-      return (
-        state.loginCredentials.username != "" &&
-        state.loginCredentials.password != ""
-      );
+      return state.loginCredentials.token != "";
     },
     loggedInUser: (state) => {
       return state.loginCredentials.username;
@@ -50,6 +46,7 @@ export default createStore({
   },
   mutations: {
     PUSH_TO_LOG(state, calculation: any) {
+      console.log(calculation)
       state.calculations.push(calculation);
     },
     SET_CONTACT_INFO(state, contactInfo: { name: string; email: string }) {
@@ -61,12 +58,12 @@ export default createStore({
     },
     SET_LOGGED_IN_USER(
       state,
-      credentials: { username: string; password: string }
+      credentials: { username: string; token: string }
     ) {
       state.loginCredentials = credentials;
     },
     CLEAR_LOGGED_IN_USER(state) {
-      state.loginCredentials = { username: "", password: "" };
+      state.loginCredentials = { username: "", token: "" };
     },
     SET_LOGIN_ERROR(state, error: string) {
       state.loginError = error;

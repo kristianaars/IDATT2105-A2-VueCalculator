@@ -1,26 +1,24 @@
-import axios from "axios";
-
-const apiClient = axios.create({
-  baseURL: "http://localhost:8085/demo",
-  withCredentials: false,
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  },
-});
+import axios from 'axios'
+import qs from 'qs'
 
 export default {
-  authenticate(username: string, password: string) {
-    return apiClient.post("/login", { username: username, password: password });
-  },
-  register(userInfo: {
-    fullName: string;
-    address: string;
-    username: string;
-    password: string;
-    email: string;
-    phone: string;
-  }) {
-    return apiClient.post("/register", userInfo)
-  },
-};
+  /**
+   * Gets new token for the provided user-credentials from the authentication-server.
+   *
+   * @param username Username to user-credentials. (E-mail)
+   * @param password Password to user-credentials
+   * @returns {AxiosPromise}
+   */
+  getToken (username: String, password: String) {
+    const data = { username: username, password: password };
+    const options = {
+      method: "POST",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      data: qs.stringify(data),
+      url: "http://localhost:8085/token"
+    };
+
+    // @ts-ignore
+    return axios(options);
+  }
+}
